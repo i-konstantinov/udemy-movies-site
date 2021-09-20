@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DETAILS</title>
+</head>
+
+<body>
+<label>MOVIES IMDB CLONE</label>
+<br>
+
+    <div class="article-card">
+        <h1 class="article-title">{{ movie.title }}</h1>
+        <img class="article-image"
+             src="{{ movie.image.url }}"
+             height="500"
+             width="300">
+        <p>
+            {{ movie.description }}
+        </p>
+        <h4>{{ movie.category }}</h4>
+    </div>
+
+</body>
+</html>

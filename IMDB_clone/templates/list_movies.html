@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MOVIES</title>
+</head>
+
+<body>
+<label>MOVIES IMDB CLONE</label>
+<br>
+{% for movie in movies %}
+    <div class="article-card">
+        <h1 class="article-title">{{ movie.title }}</h1>
+        <img class="article-image"
+             src="{{ movie.image.url }}"
+             height="350"
+             width="250">
+        <p>
+            {{ movie.description }}
+        </p>
+        <h4>{{ movie.category }}</h4>
+        <a class="button" href={% url 'movie details' movie.pk %}>
+            See Details
+        </a>
+
+    </div>
+{% endfor %}
+</body>
+</html>
