@@ -38,8 +38,13 @@ class Movie(models.Model):
         max_length=100,
     )
 
+    cast = models.CharField(
+        default='',
+        max_length=500,
+    )
+
     description = models.TextField(
-        max_length=1000,
+        max_length=10000,
     )
 
     image = models.ImageField(
@@ -62,6 +67,27 @@ class Movie(models.Model):
         default=0,
     )
 
-    # tags
-    # download links
-    # watch links
+    def __str__(self):
+        return self.title
+
+
+class MovieLinks(models.Model):
+    LINK_TYPE_CHOICES = (
+        ('D', 'download link'),
+        ('W', 'watch link'),
+    )
+
+    movie = models.ForeignKey(
+        Movie,
+        on_delete=models.CASCADE,
+    )
+    type_of_link = models.CharField(
+        choices=LINK_TYPE_CHOICES,
+        max_length=1,
+    )
+    link = models.URLField()
+
+    def __str__(self):
+        return f"{self.movie} {self.type_of_link} link"
+
+# tags
