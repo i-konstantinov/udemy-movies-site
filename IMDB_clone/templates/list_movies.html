@@ -1,50 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>MOVIES</title>
-</head>
+{% extends 'base.html' %}
 
-<body>
-<label>MOVIES IMDB CLONE</label>
-<br>
-{% for movie in movies %}
-    <div>
-        <h1>{{ movie.title }}</h1>
-        <img src="{{ movie.image.url }}"
-             height="350"
-             width="250">
-        <h4>Category: {{ movie.category }}</h4>
-        <a href={% url 'movie details' movie.pk %}>
-            <h3>See Details</h3>
-        </a>
-    </div>
-    <br>
-{% endfor %}
+{% block content %}
 
-{% if is_paginated %}
-    <nav class="paginator">
-        <h3>
-            {% if page_obj.has_previous %}
-                <a href="?page={{ page_obj.previous_page_number }}"><--Previous</a>
-            {% endif %}
+    {% for movie in movies %}
+        <div>
+            <h1>{{ movie.title }}</h1>
+            <img src="{{ movie.image.url }}"
+                 height="350"
+                 width="250">
 
-            {% for page in page_obj.paginator.page_range %}
-                {% if page_obj.number == page %}
-                    <a href="#">{{ page }}</a>
-                {% else %}
-                    <a href="?page={{ page }}">{{ page }}</a>
+            <a href={% url 'movie details' movie.pk %}>
+                <h3>See Details</h3>
+            </a>
+
+            <div>
+                <h4>Category: '{{ movie.category }}'</h4>
+            </div>
+        </div>
+        <br>
+    {% endfor %}
+
+    {% if is_paginated %}
+        <nav class="paginator">
+            <h3>
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}"><--Previous</a>
                 {% endif %}
-            {% endfor %}
 
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">Next--></a>
-            {% endif %}
-        </h3>
-    </nav>
-{% endif %}
+                {% for page in page_obj.paginator.page_range %}
+                    {% if page_obj.number == page %}
+                        <a href="#">{{ page }}</a>
+                    {% else %}
+                        <a href="?page={{ page }}">{{ page }}</a>
+                    {% endif %}
+                {% endfor %}
 
-<h5>Category Signatures: A- action, C- comedy, D- drama, R- romance</h5>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Next--></a>
+                {% endif %}
+            </h3>
+        </nav>
+    {% endif %}
 
-</body>
-</html>
+    <h5>Category Signatures: A- action, C- comedy, D- drama, R- romance</h5>
+
+{% endblock %}
