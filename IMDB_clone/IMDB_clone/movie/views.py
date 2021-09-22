@@ -6,8 +6,8 @@ from IMDB_clone.movie.models import Movie, MovieLinks
 
 class ListMovies(ListView):
     model = Movie
-    template_name = 'list_movies.html'
     context_object_name = 'movies'
+    template_name = 'list_movies.html'
     paginate_by = 2
 
 
@@ -27,18 +27,38 @@ class MovieDetails(DetailView):
         return context
 
 
+# class MovieFilters(ListView):
+#     model = Movie
+#     template_name = 'base.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data()
+#         context['categories'] = self.model.CATEGORY_CHOICES
+#         context['languages'] = self.model.LANGUAGE_CHOICES
+
+
 class MovieCategory(ListView):
     model = Movie
     template_name = 'list_movies.html'
 
     def get_queryset(self):
-        search_query = self.request.GET.get('choice')
-        wanted_category = None
-        for cat in self.model.CATEGORY_CHOICES:
-            if cat[1] == search_query:
-                wanted_category = cat[0]
-                break
-        movies = Movie.objects.filter(category=wanted_category)
+        category_choice = self.request.GET.get('choice')
+        movies = Movie.objects.filter(category=category_choice)
+        return movies
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['movies'] = self.get_queryset()
+        return context
+
+
+class MovieLanguage(ListView):
+    model = Movie
+    template_name = 'list_movies.html'
+
+    def get_queryset(self):
+        language_choice = self.request.GET.get('lang_choice')
+        movies = Movie.objects.filter(language=language_choice)
         return movies
 
     def get_context_data(self, **kwargs):
