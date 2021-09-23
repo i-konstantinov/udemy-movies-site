@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MOVIES</title>
+    <link rel="stylesheet" href={% static 'css/prefs.css' %}>
+</head>
+
+<header>
+    <div id="menu">
+        <ul>
+            <li>
+                <a href={% url 'list movies' %}>IMDB CLONE HOME</a>
+            </li>
+
+            <li>
+                <form action={% url 'movie category' %}>
+                    {% csrf_token %}
+                    <label for="category_choice">
+                        Categories
+                        <select name="category_choice" id="category_choice">
+                            <option value="A">Action</option>
+                            <option value="D">Drama</option>
+                            <option value="C">Comedy</option>
+                            <option value="R">Romance</option>
+                        </select>
+                        <button type="submit">Show</button>
+                    </label>
+                </form>
+            </li>
+
+            <li>
+                <form action={% url 'movie language' %}>
+                    {% csrf_token %}
+                    <label for="language_choice">
+                        Languages
+                        <select name="language_choice" id="language_choice">
+                            <option value="ENG">English</option>
+                            <option value="GER">German</option>
+                        </select>
+                        <button type="submit">Show</button>
+                    </label>
+                </form>
+            </li>
+
+        </ul>
+    </div>
+
+
+</header>
+
+<body>
+
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

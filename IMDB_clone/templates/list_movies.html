@@ -2,24 +2,30 @@
 
 {% block content %}
 
-    {% if movies %}
-        {% for movie in movies %}
-            <div>
-                <h1>{{ movie.title }}</h1>
-                <img src="{{ movie.image.url }}"
-                     height="350"
-                     width="250">
+    {% if object_list %}
+        <div id="container">
+            <ul>
+                {% for movie in object_list %}
+                    <li>
+                        <div id="name">
+                            <h1>{{ movie.title }}</h1>
+                        </div>
+                        <img src="{{ movie.image.url }}"
+                             height="350"
+                             width="250">
 
-                <a href={% url 'movie details' movie.pk %}>
-                    <h3>See Details</h3>
-                </a>
+                        <a href={% url 'movie details' movie.pk %}>
+                            <h3>See Details</h3>
+                        </a>
 
-                <div>
-                    <h4>Category: '{{ movie.category }}'</h4>
-                </div>
-            </div>
-            <br>
-        {% endfor %}
+                        <div>
+                            <h4>Category: '{{ movie.category }}'</h4>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <br>
     {% else %}
         <h3>No movies to show</h3>
     {% endif %}
